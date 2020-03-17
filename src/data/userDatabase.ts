@@ -36,15 +36,17 @@ export class UserDB extends BaseDB {
       return this.mapDBUserToUser(user[0][0])
    }
 
-   public async getUserById(id: string): Promise<User | undefined> {
-      const user = await this.connection.raw(`
-         SELECT * FROM ${this.userTable} WHERE email = '${id}'
-      `);
+   public async getUserById(id: string): Promise<User | undefined>{
+      const result = await this.connection.raw(`
+          SELECT *
+          FROM ${this.userTable}
+          WHERE id='${id}'
+      `)
 
-      if (!user[0][0]) {
-         return undefined
-      }
+      if(!result[0][0]){
+          return undefined;
+      };
 
-      return this.mapDBUserToUser(user[0][0])
-   }
+      return this.mapDBUserToUser(result[0][0])
+  }
 }
