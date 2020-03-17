@@ -7,7 +7,7 @@ export abstract class BaseDB {
          host: "ec2-18-229-236-15.sa-east-1.compute.amazonaws.com",
          port: 3306,
          user: "saulo",
-         password: "Q5KHF$2pWchdsDvVu0ot",
+         password: "",
          database: "bouman-saulo"
       }
    });
