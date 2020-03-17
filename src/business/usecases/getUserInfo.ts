@@ -1,34 +1,30 @@
-import { UserDB } from '../../data/userDatabase';
+import { UserDB } from "../../data/userDatabase";
 
-export class GetUserInfoUC {
-   constructor(private db: UserDB) { }
+export class GetUserInfoUC{
+    constructor(
+        private userDB: UserDB
+    ){}
 
-   public async execute(input: GetUserInfoUCInput): Promise<GetUserInfoUCOutput> {
-      try {
-         const user = await this.db.getUserById(input.id)
+    public async execute(input: GetUserInfoUCInput): Promise<GetUserInfoUCOutput>{
+        const user = await this.userDB.getUserById(input.id)
 
-         if(!user) {
-            throw new Error("Usuário não encontrado.")
-         }
+        if(!user){
+            throw new Error("User not found")
+        }
 
-         return {
+        return{
             id: user.getId(),
-            email: user.getEmail(),
-            message: "Informações retornadas com sucesso."
-         } 
-       
-      } catch (err) {
-         throw new Error(err.message)
-      }
-   }
-};
+            email: user.getEmail()
+        }
+    }
 
-export interface GetUserInfoUCInput {
-  id: string
-};
+}
 
-export interface GetUserInfoUCOutput {
-   id: string,
-   email: string,
-   message: string
-};
+export interface GetUserInfoUCInput{
+    id: string
+}
+
+export interface GetUserInfoUCOutput{
+    id: string,
+    email: string
+}
