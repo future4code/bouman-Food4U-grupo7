@@ -1,8 +1,10 @@
 import { User } from '../business/entities/users';
 import { BaseDB } from './baseDatabase';
+import { UserGateway } from '../business/gateways/userGateway';
 
-export class UserDB extends BaseDB {
+export class UserDB extends BaseDB implements UserGateway {
    private userTable = "users";
+   private relationsTable = "users_relations";
 
    private mapDBUserToUser(input?: any): User | undefined {
       return (
@@ -36,17 +38,28 @@ export class UserDB extends BaseDB {
       return this.mapDBUserToUser(user[0][0])
    }
 
-   public async getUserById(id: string): Promise<User | undefined>{
+   public async getUserById(id: string): Promise<User | undefined> {
       const result = await this.connection.raw(`
           SELECT *
           FROM ${this.userTable}
           WHERE id='${id}'
       `)
 
-      if(!result[0][0]){
-          return undefined;
+      if (!result[0][0]) {
+         return undefined;
       };
 
       return this.mapDBUserToUser(result[0][0])
-  }
+   }
+
+   async createUserFollowRelation(follower_id: string, followed_id: string): Promise<void> {
+      await this.connection.raw(`
+      INSERT INTO ${this.relationsTable} (follower_id, followed_id)
+      VALUES ('${follower_id}', '${followed_id}')
+`)
+      
+   }
+
+
+
 }
