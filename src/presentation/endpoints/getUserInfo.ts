@@ -1,23 +1,26 @@
-import { Request, Response } from 'express';
-import { UserDB } from "../../data/userDatabase";
-import * as jwt from 'jsonwebtoken';
-import { GetUserInfoUC } from '../../business/usecases/getUserInfo';
+import { Request, Response } from "express";
+import * as jwt from "jsonwebtoken"
+
 
 export const getUserInfoEndpoint = async (req: Request, res: Response) => {
-   try{
-      const loginUC = new GetUserInfoUC(new UserDB());
 
-      const data = jwt.verify(req.headers.auth as string, "saulo-bouman") as {id: string}
+    try {
+        const data = jwt.verify(req.headers.auth as string, "lalala") as { id: string }
 
-      const userInfo = await loginUC.execute({
-        id: data.id
-      })
+        
+        
+        const input = {
+            id: data.id
+        }
 
-      res.status(200).send({user: userInfo})
+      
+        
+        res.send({ user: data });
 
-   } catch (err) {
-      res.status(err.errorCode || 400).send({
-         message: err.message
-      })  
-   };
-}
+        } catch (err) {
+            res.status(400).send({
+                message: err.message,
+                ...err
+            });
+        }
+    };

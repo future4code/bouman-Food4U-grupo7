@@ -1,34 +1,27 @@
-import { UserDB } from '../../data/userDatabase';
+import { v4 } from "uuid"
+import { UserGateway } from "../gateways/userGateway"
+
 
 export class GetUserInfoUC {
-   constructor(private db: UserDB) { }
+    constructor(private userGateway: UserGateway) { }
 
-   public async execute(input: GetUserInfoUCInput): Promise<GetUserInfoUCOutput> {
-      try {
-         const user = await this.db.getUserById(input.id)
-
-         if(!user) {
-            throw new Error("Usuário não encontrado.")
-         }
-
-         return {
+    async execute(input: GetUserInfoInput): Promise<GetUserInfoOutput> {
+        const user = await this.userGateway.getUserInfo(input.id)
+        if(!user) {
+            throw new Error("Usuário não encontrado")
+        }
+        return {
             id: user.getId(),
-            email: user.getEmail(),
-            message: "Informações retornadas com sucesso."
-         } 
-       
-      } catch (err) {
-         throw new Error(err.message)
-      }
-   }
-};
+            email: user.getEmail()
+        }
+    }
+}
 
-export interface GetUserInfoUCInput {
-  id: string
-};
+export interface GetUserInfoInput {
+    id: string;
+}
 
-export interface GetUserInfoUCOutput {
-   id: string,
-   email: string,
-   message: string
-};
+export interface GetUserInfoOutput {
+    id: string;
+    email: string;
+}
