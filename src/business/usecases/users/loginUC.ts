@@ -1,4 +1,4 @@
-import { UserDB } from '../../data/userDatabase';
+import { UserDB } from '../../../data/userDatabase';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
@@ -10,13 +10,13 @@ export class LoginUC {
 
       if (!user) {
          throw new Error("Email incorreto.")
-      }
+      };
 
       const isPasswordCorrect = await bcrypt.compare(input.password, user.getPassword());
 
       if (!isPasswordCorrect) {
          throw new Error("Senha incorreta.")
-      }
+      };
 
       const token = jwt.sign({ id: user.getId() }, "saulo-bouman", {
          expiresIn: '1h'
@@ -26,7 +26,7 @@ export class LoginUC {
          message: "Usuário logado com sucesso",
          token: token
       }
-   }
+   };
 };
 
 export interface LoginUCInput {

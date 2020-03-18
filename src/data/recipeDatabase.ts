@@ -1,6 +1,6 @@
 import { BaseDB } from './baseDatabase';
 import { RecipeGateway } from '../business/gateways/recipeGateway';
-import { Recipe } from '../business/entities/recipe';
+import { Recipe } from '../business/entities/recipes';
 
 export class RecipeDB extends BaseDB implements RecipeGateway {
     private recipeTable = "recipes";
@@ -14,5 +14,5 @@ export class RecipeDB extends BaseDB implements RecipeGateway {
             creationDate: recipe.getCreationDate(),
             userId: recipe.getUserId()
         }).into(this.recipeTable)
-    }
+    };
 }

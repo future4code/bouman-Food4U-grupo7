@@ -1,5 +1,5 @@
-import { Recipe } from "../entities/recipe";
+import { Recipe } from "../entities/recipes";
 
-export interface RecipeGateway{
-createRecipe(recipe: Recipe): Promise<void>
+export interface RecipeGateway {
+   createRecipe(recipe: Recipe): Promise<void>
 }
