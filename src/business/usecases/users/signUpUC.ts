@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
-import { UserDB } from '../../data/userDatabase';
-import { User } from '../entities/users';
+import { UserDB } from '../../../data/userDatabase';
+import { User } from '../../entities/users';
 import * as bcrypt from 'bcrypt';
 
 export class SignUpUC {
@@ -26,7 +26,7 @@ export class SignUpUC {
       } catch (err) {
          throw new Error(err.message)
       }
-   }
+   };
 };
 
 export interface SignUpUCInput {

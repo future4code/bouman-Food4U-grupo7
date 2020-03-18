@@ -28,6 +28,4 @@ export class User {
    public setPassword(password: string): void {
       this.password = password;
    }
-
-
 }
