@@ -11,10 +11,12 @@ export class GetUserInfoUC {
         if (!user) {
             throw new Error("User not found")
         }
-
+        
         return {
             id: user.getId(),
-            email: user.getEmail()
+            email: user.getEmail(),
+            name: user.getName(),
+            birthday: user.getBirthday()
         }
     };
 }
@@ -25,5 +27,7 @@ export interface GetUserInfoUCInput {
 
 export interface GetUserInfoUCOutput {
     id: string,
-    email: string
+    email: string,
+    name: string,
+    birthday: string
 }

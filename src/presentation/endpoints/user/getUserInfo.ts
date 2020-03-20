@@ -6,9 +6,10 @@ import { UserDB } from "../../../data/userDatabase";
 export const getUserInfoEndpoint = async (req: Request, res: Response) => {
     try {
         const getUserInfoUc = new GetUserInfoUC(new UserDB());
+        const jwtSecretKey: string = process.env.SECRET || "";
 
-        const token_verify = jwt.verify(req.headers.authorization as string, "saulo-bouman") as { id: string }
-
+        const token_verify = jwt.verify(req.headers.authorization as string, jwtSecretKey) as { id: string }
+        
         const result = await getUserInfoUc.execute({
             id: token_verify.id
         });

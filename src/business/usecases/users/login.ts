@@ -7,6 +7,7 @@ export class LoginUC {
 
    public async execute(input: LoginUCInput): Promise<LoginUCOutput> {
       const user = await this.db.getUserByEmail(input.email);
+      const jwtSecretKey: string = process.env.SECRET || "";
 
       if (!user) {
          throw new Error("Email incorreto.")
@@ -18,7 +19,7 @@ export class LoginUC {
          throw new Error("Senha incorreta.")
       };
 
-      const token = jwt.sign({ id: user.getId() }, "saulo-bouman", {
+      const token = jwt.sign({ id: user.getId(), email: user.getEmail() }, jwtSecretKey, {
          expiresIn: '1h'
       })
 

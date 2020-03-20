@@ -15,7 +15,7 @@ export class SignUpUC {
          } else {
             const encryPassword = await bcrypt.hash(input.password, 10)
 
-            const newUser = new User(userId, input.email, encryPassword)
+            const newUser = new User(userId, input.email, encryPassword, input.name, input.birthDay)
 
             await this.db.createUser(newUser)
             return {
@@ -31,7 +31,9 @@ export class SignUpUC {
 
 export interface SignUpUCInput {
    email: string,
-   password: string
+   password: string,
+   name: string,
+   birthDay: string
 }
 
 export interface SignUpUCOutput {
