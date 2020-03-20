@@ -63,4 +63,11 @@ export class UserDB extends BaseDB implements UserGateway {
          VALUES ('${follower_id}', '${followed_id}')
       `)
    };
+
+   async updateUserPassword(newPassword: string, id: string): Promise<void>{
+      await this.connection.raw(`
+      UPDATE users SET password= "${newPassword}" WHERE id="${id}";
+      `)
+   }
+
 }
