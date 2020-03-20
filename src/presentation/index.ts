@@ -5,6 +5,7 @@ import { getUserInfoEndpoint } from "./endpoints/user/getUserInfo";
 import { createRecipeEndPoint } from "./endpoints/recipe/createRecipe";
 import { followUserEndpoint } from "./endpoints/user/followUser";
 import { getFeedforUserEndpoint } from "./endpoints/feeds/getFeedforUser";
+import { UpdateUserPasswordEndpoint } from "./endpoints/user/updateUserPassword";
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,8 @@ app.get('/user', getUserInfoEndpoint)
 app.post('/recipe', createRecipeEndPoint)
 app.post('/user/follow', followUserEndpoint)
 app.get('/feed', getFeedforUserEndpoint)
+
+app.post('/user/editpassword', UpdateUserPasswordEndpoint)
 
 export default app;
 
