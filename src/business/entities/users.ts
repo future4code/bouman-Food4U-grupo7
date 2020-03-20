@@ -3,6 +3,8 @@ export class User {
       private id: string,
       private email: string,
       private password: string,
+      private name: string,
+      private birthDay: string
    ) { }
 
    public getId(): string {
@@ -27,5 +29,21 @@ export class User {
 
    public setPassword(password: string): void {
       this.password = password;
+   }
+
+   public getName(): string {
+      return this.name;
+   }
+
+   public setName(name: string): void {
+      this.name = name;
+   }
+
+   public getBirthday(): string {
+      return this.birthDay;
+   }
+
+   public setBirthday(birthDay: string): void {
+      this.birthDay = birthDay;
    }
 }

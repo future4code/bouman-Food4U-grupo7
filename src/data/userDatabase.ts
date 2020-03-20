@@ -11,17 +11,21 @@ export class UserDB extends BaseDB implements UserGateway {
          input && new User(
             input.id,
             input.email,
-            input.password
+            input.password,
+            input.name,
+            input.birthDay
          )
       )
    };
 
    public async createUser(user: User): Promise<void> {
       await this.connection.raw(`
-         INSERT INTO ${this.userTable} (id, email, password) VALUES (
+         INSERT INTO ${this.userTable} (id, email, password, name, birthday) VALUES (
            '${user.getId()}',
            '${user.getEmail()}',
-           '${user.getPassword()}'
+           '${user.getPassword()}',
+           '${user.getName()}',
+           '${user.getBirthday()}'
          )      
       `)
    };
@@ -37,6 +41,7 @@ export class UserDB extends BaseDB implements UserGateway {
 
       return this.mapDBUserToUser(user[0][0])
    };
+   
 
    public async getUserById(id: string): Promise<User | undefined> {
       const result = await this.connection.raw(`
